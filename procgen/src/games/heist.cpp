@@ -117,7 +117,7 @@ class HeistGame : public BasicAbstractGame {
 
         int min_maze_dim = 5;
         int max_diff = (world_dim - min_maze_dim) / 2;  //Hint: max_diff = (23-5)/2 = 9 for MemoryMode
-        int difficulty = rand_gen.randn(max_diff + 1);  //TODO: Der Wertebereich von difficulty liegt zwischen 1 und 10 im MemoryMode und schwankt damit mMn zu sehr. Ich würde diesen Wert vllt. sogar auf difficulty=10 fixieren, da der Agent nun ja auch schon für das Finden von Schlüsseln/Aufmachen von Schlössern belohnt wird. (Zum Vergleich: im Paper https://arxiv.org/pdf/2006.07262.pdf gehen sie bis maximal auf difficulty=4)
+        int difficulty = 6;  //TODO: Der Wertebereich von difficulty liegt zwischen 1 und 10 im MemoryMode und schwankt damit mMn zu sehr. Ich würde diesen Wert vllt. sogar auf difficulty=10 fixieren, da der Agent nun ja auch schon für das Finden von Schlüsseln/Aufmachen von Schlössern belohnt wird. (Zum Vergleich: im Paper https://arxiv.org/pdf/2006.07262.pdf gehen sie bis maximal auf difficulty=4)
 
         options.center_agent = options.distribution_mode == MemoryMode;
 
