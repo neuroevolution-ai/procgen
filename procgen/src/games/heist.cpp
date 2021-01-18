@@ -7,8 +7,6 @@
 
 const std::string NAME = "heist";
 
-const float COMPLETION_BONUS = 10.0f;
-
 const int LOCKED_DOOR = 1;
 const int KEY = 2;
 const int EXIT = 9;
@@ -82,15 +80,17 @@ class HeistGame : public BasicAbstractGame {
 
         if (obj->type == EXIT) {
             step_data.done = true;
-            step_data.reward = COMPLETION_BONUS;
+            step_data.reward = 1.0f;
             step_data.level_complete = true;
         } else if (obj->type == KEY) {
             obj->will_erase = true;
             has_keys[obj->image_theme] = true;
+            step_data.reward = 1.0f;
         } else if (obj->type == LOCKED_DOOR) {
             int door_num = obj->image_theme;
             if (has_keys[door_num]) {
                 obj->will_erase = true;
+                step_data.reward = 1.0f;
             }
         }
     }
@@ -116,13 +116,13 @@ class HeistGame : public BasicAbstractGame {
         BasicAbstractGame::game_reset();
 
         int min_maze_dim = 5;
-        int max_diff = (world_dim - min_maze_dim) / 2;
-        int difficulty = rand_gen.randn(max_diff + 1);
+        int max_diff = (world_dim - min_maze_dim) / 2;  //Hint: max_diff = (23-5)/2 = 9 for MemoryMode
+        int difficulty = rand_gen.randn(max_diff + 1);  //TODO: Der Wertebereich von difficulty liegt zwischen 1 und 10 im MemoryMode und schwankt damit mMn zu sehr. Ich würde diesen Wert vllt. sogar auf difficulty=10 fixieren, da der Agent nun ja auch schon für das Finden von Schlüsseln/Aufmachen von Schlössern belohnt wird. (Zum Vergleich: im Paper https://arxiv.org/pdf/2006.07262.pdf gehen sie bis maximal auf difficulty=4)
 
         options.center_agent = options.distribution_mode == MemoryMode;
 
         if (options.distribution_mode == MemoryMode) {
-            num_keys = rand_gen.randn(4);
+            num_keys = 3;
         } else {
             num_keys = difficulty + rand_gen.randn(2);
         }
