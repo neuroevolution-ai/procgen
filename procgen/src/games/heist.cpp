@@ -80,17 +80,17 @@ class HeistGame : public BasicAbstractGame {
 
         if (obj->type == EXIT) {
             step_data.done = true;
-            step_data.reward = 1.0f;
+            step_data.reward = 100.0f;
             step_data.level_complete = true;
         } else if (obj->type == KEY) {
             obj->will_erase = true;
             has_keys[obj->image_theme] = true;
-            step_data.reward = 1.0f;
+            step_data.reward = 150.0f;
         } else if (obj->type == LOCKED_DOOR) {
             int door_num = obj->image_theme;
             if (has_keys[door_num]) {
                 obj->will_erase = true;
-                step_data.reward = 1.0f;
+                step_data.reward = 150.0f;
             }
         }
     }
@@ -204,7 +204,9 @@ class HeistGame : public BasicAbstractGame {
 
     void game_step() override {
         BasicAbstractGame::game_step();
-
+        
+        step_data.reward -= 1.0f;
+      
         agent->face_direction(action_vx, action_vy);
     }
 
