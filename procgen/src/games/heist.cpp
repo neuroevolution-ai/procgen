@@ -80,17 +80,17 @@ class HeistGame : public BasicAbstractGame {
 
         if (obj->type == EXIT) {
             step_data.done = true;
-            step_data.reward += 100.0f;
+            step_data.reward += 400.7f;
             step_data.level_complete = true;
         } else if (obj->type == KEY) {
             obj->will_erase = true;
             has_keys[obj->image_theme] = true;
-            step_data.reward += 150.0f;
+            step_data.reward += 100.1f;
         } else if (obj->type == LOCKED_DOOR) {
             int door_num = obj->image_theme;
             if (has_keys[door_num]) {
                 obj->will_erase = true;
-                step_data.reward += 150.0f;
+                step_data.reward += 100.1f;
             }
         }
     }
